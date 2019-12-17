@@ -6,10 +6,12 @@ if !exists('g:extra_whitespace_ignored_filetypes')
 endif
 
 function! ShouldMatchWhitespace()
-    for ft in g:extra_whitespace_ignored_filetypes
-        if ft ==# &filetype | return 0 | endif
-    endfor
+  if index(g:extra_whitespace_ignored_filetypes, &ft)
     return 1
+  else
+    match ExtraWhitespace none
+    return 0
+  endif
 endfunction
 
 " Highlight EOL whitespace, http://vim.wikia.com/wiki/Highlight_unwanted_spaces
