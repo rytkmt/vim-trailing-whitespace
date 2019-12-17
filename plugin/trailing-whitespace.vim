@@ -13,7 +13,7 @@ function! CheckMatchWhitespace(type)
       match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/
     endif
   else
-    match ExtraWhitespace none
+    match ExtraWhitespace /^^/
   endif
 endfunction
 
