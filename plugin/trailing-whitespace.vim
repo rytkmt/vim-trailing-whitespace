@@ -21,8 +21,8 @@ endfunction
 highlight default ExtraWhitespace ctermbg=darkred guibg=darkred
 autocmd ColorScheme * highlight default ExtraWhitespace ctermbg=darkred guibg=darkred
 
-autocmd BufRead,BufNew,WinEnter * CheckMatchWhitespace('normal')
+autocmd BufRead,BufNew,WinEnter * call CheckMatchWhitespace('normal')
 
 " The above flashes annoyingly while typing, be calmer in insert mode
-autocmd InsertLeave * CheckMatchWhitespace('normal')
-autocmd InsertEnter * CheckMatchWhitespace('insert_enter')
+autocmd InsertLeave * call CheckMatchWhitespace('normal')
+autocmd InsertEnter * call CheckMatchWhitespace('insert_enter')
