@@ -6,23 +6,18 @@ if !exists('g:extra_whitespace_ignored_filetypes')
 endif
 
 function! ShouldMatchWhitespace()
-  if index(g:extra_whitespace_ignored_filetypes, &ft)
-    return 1
-  else
-    match ExtraWhitespace none
-    return 0
-  endif
+  return index(g:extra_whitespace_ignored_filetypes, &ft)
 endfunction
 
 " Highlight EOL whitespace, http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 highlight default ExtraWhitespace ctermbg=darkred guibg=darkred
 autocmd ColorScheme * highlight default ExtraWhitespace ctermbg=darkred guibg=darkred
-autocmd BufRead,BufNew * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | else | match ExtraWhitespace /^^/ | endif
-autocmd FileType * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | else | match ExtraWhitespace /^^/ | endif
+autocmd BufRead,BufNew * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | else | match ExtraWhitespace none | endif
+autocmd FileType * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | else | match ExtraWhitespace none | endif
 
 " The above flashes annoyingly while typing, be calmer in insert mode
-autocmd InsertLeave * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | endif
-autocmd InsertEnter * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+\%#\@<!$/ | endif
+autocmd InsertLeave * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | else | match ExtraWhitespace none | endif
+autocmd InsertEnter * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+\%#\@<!$/ | else | match ExtraWhitespace none | endif
 
 function! s:FixWhitespace(line1,line2)
     let l:save_cursor = getpos(".")
