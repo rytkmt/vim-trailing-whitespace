@@ -6,7 +6,7 @@ if !exists('g:extra_whitespace_ignored_filetypes')
 endif
 
 function! CheckMatchWhitespace(type)
-  if index(g:extra_whitespace_ignored_filetypes, &ft)
+  if index(g:extra_whitespace_ignored_filetypes, &ft) != -1
     if a:type == 'insert_enter'
       match ExtraWhitespace /\\\@<![\u3000[:space:]]\+\%#\@<!$/
     else
